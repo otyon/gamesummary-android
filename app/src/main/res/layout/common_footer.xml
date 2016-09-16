@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#FFFFFF"
+    android:weightSum="5">
+            <!-- 新着-->
+            <ImageView
+                android:onClick="onNewButtonClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_frame_define"
+                android:src="@drawable/new_icon" />
+
+            <!-- 公式お知らせ　-->
+            <ImageView
+                android:onClick="onInfomationButtonClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_frame_define"
+                android:src="@drawable/infomation_icon" />
+
+            <!-- 図鑑　-->
+            <ImageView
+                android:onClick="onDictionaryButtonClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_frame_define"
+                android:src="@drawable/dictionary_icon" />
+
+            <!-- 掲示板　-->
+            <ImageView
+                android:onClick="onBulletionBoardButtonClick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_frame_define"
+                android:src="@drawable/bulletion_board_icon" />
+
+            <!-- お気に入り　-->
+            <ImageView
+                android:onClick="onFavoriteButtonClick"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:background="@drawable/button_frame_define"
+                 android:src="@drawable/favorite_on_icon" />
+</LinearLayout>

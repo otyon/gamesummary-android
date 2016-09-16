@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ソシャゲまとめ速報</string>
+
+
+    <!-- サイトＵＲＬ -->
+    <string name="new_url">http://unisonleague.warotamaker.com</string>
+    <string name="information_url">http://app.a-tm.co.jp/unisonleague/news_list</string>
+    <string name="dictionary_url">https://gamy.jp/unisonleague</string>
+    <string name="bulletion_borad_url">https://gamy.jp/unisonleague/bbs</string>
+
+
+</resources>
