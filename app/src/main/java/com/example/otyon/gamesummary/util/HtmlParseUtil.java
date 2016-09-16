@@ -19,6 +19,7 @@ public class HtmlParseUtil {
 
     private int TIMEOUT = 5000;
     private Document document = null;
+    private String url;
 
     /**
      * urlのhtmlを習得
@@ -27,6 +28,7 @@ public class HtmlParseUtil {
      * @throws IOException
      * */
     public void connectUrll(String url) throws IOException {
+        this.url = url;
         this.document = Jsoup.connect(url)
                                .header("User-Agent", "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.63 Safari/537.36")
                                .timeout(TIMEOUT)
@@ -42,6 +44,7 @@ public class HtmlParseUtil {
      * @throws IOException
      * */
     public void connectUrl(String url, int timeout) throws IOException {
+        this.url = url;
         this.document = Jsoup.connect(url).timeout(timeout).get();
     }
 
@@ -73,7 +76,7 @@ public class HtmlParseUtil {
                    .append(" ")
                    .append(channel);
 
-            parseData.put("url", url.replace("feed", "feed-click"));
+            parseData.put("url", this.url + url.replace("feed", "feed-click"));
             parseData.put("site", channel);
             parseData.put("heding", heading);
             parseData.put("channel", builder.toString());
@@ -153,6 +156,55 @@ public class HtmlParseUtil {
             String remarkTitle     = getText(childrenList.get(0), "");
             String remarkContents = getText(childrenList.get(2), "");
 
+            parseData.put("remarkHeader", remarkTitle);
+            parseData.put("remarkContents", remarkContents);
+            parseDatas.add(parseData);
+        }
+
+        return parseDatas;
+    }
+
+    /**
+     * ユニゾンリーグ攻略サイト
+     * http://unisonleague-site.blog.jp/
+     * */
+    public  ArrayList<Map<String, String>> getUnKouryakuParseData() {
+        ArrayList<Map<String, String>> parseDatas = new ArrayList<Map<String, String>>();
+
+        Elements targetElements = (Elements)document.select("div.t_b");
+        ListIterator<Element> targetElementsList = targetElements.listIterator();
+        while(targetElementsList.hasNext()) {
+            Elements childrenList = targetElementsList.next().children();
+
+            Map<String, String> parseData = new HashMap<String, String>();
+            String remarkTitle     = getText(childrenList.get(0), "");
+            String remarkContents = getText(childrenList.get(1), "");
+
+            parseData.put("remarkHeader", remarkTitle);
+            parseData.put("remarkContents", remarkContents);
+            parseDatas.add(parseData);
+        }
+
+        return parseDatas;
+    }
+
+    /**
+     * ユニゾンリーグ最速攻略まとめ
+     * http://unisonleague.kouryakublog.biz/
+     * */
+    public  ArrayList<Map<String, String>> getUnSaisokuKouryakuParseData() {
+        ArrayList<Map<String, String>> parseDatas = new ArrayList<Map<String, String>>();
+
+        Elements headerElem = (Elements)document.select("div.matome-headline");
+        Elements naiyouElem = (Elements)document.select("div.matome-body");
+        ListIterator<Element> remarkUserlists    = headerElem.listIterator();
+        ListIterator<Element> remarkContentlists = naiyouElem.listIterator();
+        while(remarkUserlists.hasNext()) {
+            Map<String, String> parseData = new HashMap<String, String>();
+            Element remarkUserElement = remarkUserlists.next();
+            String remarkTitle = getText(remarkUserElement, "span");
+            Element remarkContentElements = remarkContentlists.next();
+            String remarkContents = getText(remarkContentElements, "");
             parseData.put("remarkHeader", remarkTitle);
             parseData.put("remarkContents", remarkContents);
             parseDatas.add(parseData);

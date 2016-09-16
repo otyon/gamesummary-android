@@ -1,7 +1,9 @@
 package com.example.otyon.gamesummary.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.TextView;
@@ -12,12 +14,17 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.example.otyon.gamesummary.R;
+import com.example.otyon.gamesummary.task.NewAsyncTask;
+import com.example.otyon.gamesummary.task.NewDetailAsyncTask;
 
 public class NewDetailActivity extends AbstructActivity {
 
+    private int selectPosition = 0;
     private int beforePosition = 0;
     private int nextPosition = 1;
-    private ArrayList<Map<String, String>> newsDataList;
+    private ArrayList<Map<String, String>> newDataList;
+    private Intent intent;
+    private Activity activity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +32,8 @@ public class NewDetailActivity extends AbstructActivity {
         setContentView(R.layout.activity_detail);
 
         Intent intent = getIntent();
-        newsDataList= (ArrayList<Map<String, String>>)intent.getSerializableExtra("newDataLists");
+        this.intent = intent;
+        newDataList = (ArrayList<Map<String, String>>)intent.getSerializableExtra("newDataLists");
 
         TextView tileText = (TextView)findViewById(R.id.header_title);
         tileText.setText("新着詳細");
@@ -34,18 +42,18 @@ public class NewDetailActivity extends AbstructActivity {
         Button nextButton = (Button)findViewById(R.id.next_button);
 
         int selectPosition  = intent.getIntExtra("selectPosition", 0);
-        beforePosition    = selectPosition - 1;
-        nextPosition      = selectPosition + 1;
-        if (beforePosition <= 0) {
+        this.selectPosition = selectPosition;
+        beforePosition = selectPosition - 1;
+        nextPosition   = selectPosition + 1;
+        if (beforePosition < 0) {
             beforeButton.setEnabled(false);
         }
-        if (nextPosition >= newsDataList.size()) {
+        if (nextPosition > newDataList.size()) {
             nextButton.setEnabled(false);
         }
 
-        String remarkTitle  = intent.getStringExtra("remarkTitle");
         TextView newsTitle = (TextView)findViewById(R.id.news_title);
-        newsTitle.setText(remarkTitle);
+        newsTitle.setText(newDataList.get(selectPosition).get("heding"));
 
         ArrayList<Map<String, String>> nextDataLists = (ArrayList<Map<String, String>>)intent.getSerializableExtra("nextDataLists");
         Log.d("debug", nextDataLists.toString());
@@ -78,5 +86,73 @@ public class NewDetailActivity extends AbstructActivity {
             remarkContents.setLayoutParams(mp);
             commentLayout.addView(remarkContents);
         }
+    }
+
+    @Override
+    public void onReloadButtonClick(View v) {
+        new NewDetailAsyncTask(
+                activity,
+                intent,
+                newDataList.get(selectPosition).get("url"),
+                newDataList.get(selectPosition).get("site"),
+                true).execute();
+    }
+
+    public void onBeforeButonClick(View v) {
+
+        Button beforeButton = (Button)findViewById(R.id.before_button);
+        Button nextButton   = (Button)findViewById(R.id.next_button);
+        selectPosition = beforePosition;
+        beforePosition = selectPosition - 1;
+        nextPosition   = selectPosition + 1;
+        if (beforePosition < 0) {
+            beforeButton.setEnabled(false);
+        } else {
+            beforeButton.setEnabled(true);
+        }
+        if (nextPosition > newDataList.size()) {
+            nextButton.setEnabled(false);
+        } else {
+            nextButton.setEnabled(true);
+        }
+
+        TextView newsTitle = (TextView)findViewById(R.id.news_title);
+        newsTitle.setText(newDataList.get(selectPosition).get("heding"));
+
+        new NewDetailAsyncTask(
+                activity,
+                intent,
+                newDataList.get(selectPosition).get("url"),
+                newDataList.get(selectPosition).get("site"),
+                true).execute();
+    }
+
+    public void onNextButonClick(View v) {
+        Button beforeButton = (Button)findViewById(R.id.before_button);
+        Button nextButton   = (Button)findViewById(R.id.next_button);
+
+        selectPosition = nextPosition;
+        beforePosition = selectPosition - 1;
+        nextPosition   = selectPosition + 1;
+        if (beforePosition < 0) {
+            beforeButton.setEnabled(false);
+        } else {
+            beforeButton.setEnabled(true);
+        }
+        if (nextPosition > newDataList.size()) {
+            nextButton.setEnabled(false);
+        } else {
+            nextButton.setEnabled(true);
+        }
+
+        TextView newsTitle = (TextView)findViewById(R.id.news_title);
+        newsTitle.setText(newDataList.get(selectPosition).get("heding"));
+
+        new NewDetailAsyncTask(
+                activity,
+                intent,
+                newDataList.get(selectPosition).get("url"),
+                newDataList.get(selectPosition).get("site"),
+                true).execute();
     }
 }

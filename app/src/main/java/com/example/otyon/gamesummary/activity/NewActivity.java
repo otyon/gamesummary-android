@@ -37,7 +37,7 @@ public class NewActivity extends AbstructActivity {
         intent = getIntent();
         newDataLists = (ArrayList<Map<String, String>>)intent.getSerializableExtra("newDataLists");
 
-        // 後ほどファイルから習得する方法に変更
+        // 後ほどファイルから習得する方法に・・・
         if (newDataLists == null) {
             newDataLists = new ArrayList<Map<String, String>>();
             try {
@@ -61,12 +61,10 @@ public class NewActivity extends AbstructActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
                 intent.putExtra("selectPosition", pos);
-                intent.putExtra("remarkTitle", newDataLists.get(pos).get("heding"));
-
                 new NewDetailAsyncTask(
                         activity,
                         intent,
-                        baseUrl + newDataLists.get(pos).get("url"),
+                        newDataLists.get(pos).get("url"),
                         newDataLists.get(pos).get("site"),
                         false).execute();
             }
