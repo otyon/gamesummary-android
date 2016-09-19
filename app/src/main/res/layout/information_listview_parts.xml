@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp"
+    android:weightSum="2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/information_category"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:background="@color/red"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:text="重要"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/information_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:text="2016-9-1"/>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/information_detail_button"
+                android:layout_weight="1"
+                android:text="詳細▶"
+                android:onClick="onInformationDetailButonClick"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp">
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/information_contents_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1" >
+        <View
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

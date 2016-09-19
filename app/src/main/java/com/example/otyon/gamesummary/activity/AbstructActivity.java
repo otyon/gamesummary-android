@@ -1,14 +1,30 @@
 package com.example.otyon.gamesummary.activity;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.otyon.gamesummary.R;
+import com.example.otyon.gamesummary.task.InformationAsyncTask;
+import com.example.otyon.gamesummary.task.NewAsyncTask;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public abstract class AbstructActivity extends Activity {
+
+    protected Intent intent;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        this.intent = intent;
+}
 
     public void onBackButtonClick(View v) {
         this.onBackPressed();
@@ -19,12 +35,14 @@ public abstract class AbstructActivity extends Activity {
     }
 
     public void onNewButtonClick(View v) {
-        Toast.makeText(this, "新着ボタンが押されました", Toast.LENGTH_LONG).show();
+        intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.NewActivity");
+        this.startActivity(intent);
     }
 
     public void onInfomationButtonClick(View v) {
-        Toast.makeText(this, "公式ボタンが押されました", Toast.LENGTH_LONG).show();
-    }
+        intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.InformationActivity");
+        this.startActivity(intent);
+     }
 
     public void onDictionaryButtonClick(View v) {
         Toast.makeText(this, "図鑑ボタンが押されました", Toast.LENGTH_LONG).show();

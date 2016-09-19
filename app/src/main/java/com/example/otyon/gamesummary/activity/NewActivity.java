@@ -12,7 +12,6 @@ import android.app.Activity;
 
 import com.example.otyon.gamesummary.R;
 import com.example.otyon.gamesummary.util.HtmlParseUtil;
-import com.example.otyon.gamesummary.task.NewDetailAsyncTask;
 import com.example.otyon.gamesummary.task.NewAsyncTask;
 
 import java.util.ArrayList;
@@ -21,15 +20,15 @@ import java.lang.Exception;
 
 public class NewActivity extends AbstructActivity {
 
-    private ArrayList<Map<String, String>> newDataLists;
+    protected ArrayList<Map<String, String>> newDataLists;
     protected String baseUrl = "http://unisonleague.warotamaker.com";
-    private Intent intent;
-    private Activity activity = this;
+    protected Intent intent;
+    protected Activity activity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_new);
 
         TextView tileText = (TextView)findViewById(R.id.header_title);
         tileText.setText("新着一覧");
@@ -37,36 +36,37 @@ public class NewActivity extends AbstructActivity {
         intent = getIntent();
         newDataLists = (ArrayList<Map<String, String>>)intent.getSerializableExtra("newDataLists");
 
+        new NewAsyncTask(
+                activity,
+                intent,
+                baseUrl).execute();
+
         // 後ほどファイルから習得する方法に・・・
-        if (newDataLists == null) {
-            newDataLists = new ArrayList<Map<String, String>>();
-            try {
-                HtmlParseUtil htmlParseUtil = new HtmlParseUtil();
-                htmlParseUtil.connectUrll(this.baseUrl);
-                newDataLists = htmlParseUtil.getNewsParseData();
-                intent.putExtra("newDataLists", newDataLists);
-            } catch (Exception e) {
-                Log.d("error", e.toString());
-            }
-        }
+//        if (newDataLists == null) {
+//            newDataLists = new ArrayList<Map<String, String>>();
+//            try {
+//                HtmlParseUtil htmlParseUtil = new HtmlParseUtil();
+//                htmlParseUtil.connectUrll(this.baseUrl);
+//                newDataLists = htmlParseUtil.getNewsParseData();
+//                intent.putExtra("newDataLists", newDataLists);
+//            } catch (Exception e) {
+//                Log.d("error", e.toString());
+//            }
+//        }
 
+//        ListView listView = (ListView) findViewById(R.id.newListView);
+//        SimpleAdapter adapter = new SimpleAdapter(this,
+//                newDataLists,
+//                R.layout.new_listview_parts,
+//                new String[]{"heding","channel"},
+//                new int[]{R.id.heding, R.id.channel});
+//        listView.setAdapter(adapter);
         ListView listView = (ListView) findViewById(R.id.newListView);
-        SimpleAdapter adapter = new SimpleAdapter(this,
-                newDataLists,
-                R.layout.list_view_parts,
-                new String[]{"heding","channel"},
-                new int[]{R.id.heding, R.id.channel});
-        listView.setAdapter(adapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
                 intent.putExtra("selectPosition", pos);
-                new NewDetailAsyncTask(
-                        activity,
-                        intent,
-                        newDataLists.get(pos).get("url"),
-                        newDataLists.get(pos).get("site"),
-                        false).execute();
+                intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.NewDetailActivity");
+                activity.startActivity(intent);
             }
         });
     }
@@ -76,7 +76,11 @@ public class NewActivity extends AbstructActivity {
         new NewAsyncTask(
                 activity,
                 intent,
-                baseUrl,
-                true).execute();
+                baseUrl).execute();
+    }
+
+    @Override
+    public void onNewButtonClick(View v) {
+        this.onReloadButtonClick(v);
     }
 }

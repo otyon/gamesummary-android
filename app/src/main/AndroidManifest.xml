@@ -21,8 +21,9 @@
         <activity
             android:name=".activity.OpeningSpriteActivity"/>
         <activity
-            android:name=".activity.NewDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".activity.NewDetailActivity" />
+        <activity
+            android:name=".activity.InformationActivity" />
     </application>
 
 </manifest>

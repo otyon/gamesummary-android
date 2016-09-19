@@ -27,27 +27,25 @@ public class NewDetailAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
     private Activity activity;
     private String url;
     private String site;
-    private boolean isReload;
     private ProgressBar progressBar;
     private  ArrayList<Map<String, String>> nextDataLists;
 
-    public NewDetailAsyncTask(Activity activity, Intent intent, String url, String site, boolean isReload) {
+    public NewDetailAsyncTask(Activity activity, Intent intent, String url, String site) {
         this.intent   = intent;
         this.activity = activity;
         this.url = url;
         this.site = site;
-        this.isReload = isReload;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        LayoutInflater inflater   = (LayoutInflater)activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        LinearLayout headerLayout = (LinearLayout)inflater.inflate(R.layout.common_header, null);
-        View loadLayout = inflater.inflate(R.layout.load_view_parts, null);
-        progressBar = (ProgressBar)loadLayout.findViewById(R.id.load_progressbar);
-        progressBar.setMax(100);
-         headerLayout.addView(loadLayout);
+//        LayoutInflater inflater   = (LayoutInflater)activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        LinearLayout headerLayout = (LinearLayout)inflater.inflate(R.layout.common_header, null);
+//        View loadLayout = inflater.inflate(R.layout.load_view_parts, null);
+//        progressBar = (ProgressBar)loadLayout.findViewById(R.id.load_progressbar);
+//        progressBar.setMax(100);
+//         headerLayout.addView(loadLayout);
     }
 
     @Override
@@ -93,39 +91,33 @@ public class NewDetailAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
         Log.d("debug", result.toString());
 
         if (result) {
-            if (!isReload) {
-                intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.NewDetailActivity");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                activity.startActivity(intent);
-            } else {
-                LinearLayout commentLayout = (LinearLayout)activity.findViewById(R.id.commnet_layout);
-                commentLayout.removeAllViews();
-                for(Map<String, String> nextData : nextDataLists) {
-                    Log.d("debug", nextData.get("remarkHeader"));
-                    Log.d("debug", nextData.get("remarkContents"));
+            LinearLayout commentLayout = (LinearLayout)activity.findViewById(R.id.commnet_layout);
+            commentLayout.removeAllViews();
+            for(Map<String, String> nextData : nextDataLists) {
+                Log.d("debug", nextData.get("remarkHeader"));
+                Log.d("debug", nextData.get("remarkContents"));
 
-                    TextView remarkHeader = new TextView(activity);
-                    remarkHeader.setText(nextData.get("remarkHeader"));
-                    remarkHeader.setTextSize(8);
-                    remarkHeader.setTextColor(activity.getResources().getColor(R.color.black));
-                    remarkHeader.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT));
-                    ViewGroup.MarginLayoutParams mp = (ViewGroup.MarginLayoutParams)remarkHeader.getLayoutParams();
-                    mp.setMargins(0,5,0,0);
-                    remarkHeader.setLayoutParams(mp);
-                    commentLayout.addView(remarkHeader);
+                TextView remarkHeader = new TextView(activity);
+                remarkHeader.setText(nextData.get("remarkHeader"));
+                remarkHeader.setTextSize(8);
+                remarkHeader.setTextColor(activity.getResources().getColor(R.color.black));
+                remarkHeader.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                ViewGroup.MarginLayoutParams mp = (ViewGroup.MarginLayoutParams)remarkHeader.getLayoutParams();
+                mp.setMargins(0,5,0,0);
+                remarkHeader.setLayoutParams(mp);
+                commentLayout.addView(remarkHeader);
 
-                    TextView remarkContents = new TextView(activity);
-                    remarkContents.setText(nextData.get("remarkContents"));
-                    remarkContents.setTextSize(10);
-                    remarkContents.setTextColor(activity.getResources().getColor(R.color.black));
-                    remarkContents.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT));
-                    mp = (ViewGroup.MarginLayoutParams)remarkContents.getLayoutParams();
-                    mp.setMargins(0,5,0,0);
-                    remarkContents.setLayoutParams(mp);
-                    commentLayout.addView(remarkContents);
-                }
+                TextView remarkContents = new TextView(activity);
+                remarkContents.setText(nextData.get("remarkContents"));
+                remarkContents.setTextSize(10);
+                remarkContents.setTextColor(activity.getResources().getColor(R.color.black));
+                remarkContents.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                mp = (ViewGroup.MarginLayoutParams)remarkContents.getLayoutParams();
+                mp.setMargins(0,5,0,0);
+                remarkContents.setLayoutParams(mp);
+                commentLayout.addView(remarkContents);
             }
         } else {
             Toast.makeText(activity,"データの取得に失敗しました", Toast.LENGTH_LONG).show();

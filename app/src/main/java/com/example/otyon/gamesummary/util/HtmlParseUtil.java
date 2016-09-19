@@ -213,6 +213,30 @@ public class HtmlParseUtil {
         return parseDatas;
     }
 
+    /**
+     * 公式お知らせ
+     * http://app.ja.unisonleague.com/app_jp/information.php?action_information_past=true&lang=jp
+     * */
+    public ArrayList<Map<String, String>> getInformationParseData() {
+        ArrayList<Map<String, String>> parseDatas = new ArrayList<Map<String, String>>();
+
+        Elements targetElements = (Elements)document.select("div.item");
+        ListIterator<Element> targetElementLists = targetElements.listIterator();
+        while(targetElementLists.hasNext()) {
+            Element targetElement = targetElementLists.next();
+            Map<String, String> parseData = new HashMap<String, String>();
+
+            parseData.put("url",        targetElement.getElementsByTag("a").attr("href"));
+            parseData.put("image_url", targetElement.getElementsByTag("img").attr("src"));
+            parseData.put("category",  targetElement.getElementsByClass("category").text());
+            parseData.put("time",       targetElement.getElementsByClass("tv").text());
+            parseData.put("title_word", targetElement.getElementsByClass("title_word").text());
+            parseDatas.add(parseData);
+        }
+
+        return parseDatas;
+    }
+
     private String getText(Node node, String... tagNames) {
         String text = "";
         List<Node> nodes = node.childNodes();

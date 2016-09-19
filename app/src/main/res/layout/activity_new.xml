@@ -18,7 +18,7 @@
         android:layout_weight="1"/>
 
     <include
-        layout="@layout/content_main"
+        layout="@layout/content_new"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"/>

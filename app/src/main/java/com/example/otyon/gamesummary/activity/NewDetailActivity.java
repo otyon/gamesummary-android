@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.example.otyon.gamesummary.R;
-import com.example.otyon.gamesummary.task.NewAsyncTask;
 import com.example.otyon.gamesummary.task.NewDetailAsyncTask;
 
 public class NewDetailActivity extends AbstructActivity {
@@ -55,37 +54,11 @@ public class NewDetailActivity extends AbstructActivity {
         TextView newsTitle = (TextView)findViewById(R.id.news_title);
         newsTitle.setText(newDataList.get(selectPosition).get("heding"));
 
-        ArrayList<Map<String, String>> nextDataLists = (ArrayList<Map<String, String>>)intent.getSerializableExtra("nextDataLists");
-        Log.d("debug", nextDataLists.toString());
-
-        LinearLayout commentLayout = (LinearLayout)findViewById(R.id.commnet_layout);
-
-        for(Map<String, String> nextData : nextDataLists) {
-            Log.d("debug", nextData.get("remarkHeader"));
-            Log.d("debug", nextData.get("remarkContents"));
-
-            TextView remarkHeader = new TextView(this);
-            remarkHeader.setText(nextData.get("remarkHeader"));
-            remarkHeader.setTextSize(8);
-            remarkHeader.setTextColor(getResources().getColor(R.color.black));
-            remarkHeader.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                                                                       LinearLayout.LayoutParams.WRAP_CONTENT));
-            MarginLayoutParams mp = (MarginLayoutParams)remarkHeader.getLayoutParams();
-            mp.setMargins(0,5,0,0);
-            remarkHeader.setLayoutParams(mp);
-            commentLayout.addView(remarkHeader);
-
-            TextView remarkContents = new TextView(this);
-            remarkContents.setText(nextData.get("remarkContents"));
-            remarkContents.setTextSize(10);
-            remarkContents.setTextColor(getResources().getColor(R.color.black));
-            remarkContents.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
-            mp = (MarginLayoutParams)remarkContents.getLayoutParams();
-            mp.setMargins(0,5,0,0);
-            remarkContents.setLayoutParams(mp);
-            commentLayout.addView(remarkContents);
-        }
+        new NewDetailAsyncTask(
+                activity,
+                intent,
+                newDataList.get(selectPosition).get("url"),
+                newDataList.get(selectPosition).get("site")).execute();
     }
 
     @Override
@@ -94,8 +67,7 @@ public class NewDetailActivity extends AbstructActivity {
                 activity,
                 intent,
                 newDataList.get(selectPosition).get("url"),
-                newDataList.get(selectPosition).get("site"),
-                true).execute();
+                newDataList.get(selectPosition).get("site")).execute();
     }
 
     public void onBeforeButonClick(View v) {
@@ -123,8 +95,7 @@ public class NewDetailActivity extends AbstructActivity {
                 activity,
                 intent,
                 newDataList.get(selectPosition).get("url"),
-                newDataList.get(selectPosition).get("site"),
-                true).execute();
+                newDataList.get(selectPosition).get("site")).execute();
     }
 
     public void onNextButonClick(View v) {
@@ -152,7 +123,6 @@ public class NewDetailActivity extends AbstructActivity {
                 activity,
                 intent,
                 newDataList.get(selectPosition).get("url"),
-                newDataList.get(selectPosition).get("site"),
-                true).execute();
+                newDataList.get(selectPosition).get("site")).execute();
     }
 }
