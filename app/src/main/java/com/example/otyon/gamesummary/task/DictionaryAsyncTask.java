@@ -23,14 +23,14 @@ import com.example.otyon.gamesummary.util.HtmlParseUtil;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class InformationAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
+public class DictionaryAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
 
     private Intent intent;
     private Activity activity;
     private String url;
-    private ArrayList<Map<String, String>> informationDataLists = new ArrayList<Map<String, String>>();
+    private ArrayList<Map<String, String>> DictonaryDataLists = new ArrayList<Map<String, String>>();
 
-    public InformationAsyncTask(Activity activity, Intent intent, String url) {
+    public DictionaryAsyncTask(Activity activity, Intent intent, String url) {
         this.intent   = intent;
         this.activity = activity;
         this.url = url;
@@ -41,7 +41,7 @@ public class InformationAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
         super.onPreExecute();
         ListView listView = (ListView)activity.findViewById(R.id.informationListView);
         SimpleAdapter adapter = new SimpleAdapter(activity,
-                                                   informationDataLists,
+                                                    DictonaryDataLists,
                                                     R.layout.information_listview_parts,
                                                     new String[]{"information_category","information_time"},
                                                     new int[]{R.id.information_category, R.id.information_time});
@@ -50,19 +50,19 @@ public class InformationAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
 
     @Override
     protected Boolean doInBackground(Void... value) {
-        Log.d("debug InformationTask", "doInBackgroundが実行されました");
+        Log.d("DictionaryAsyncTask", "doInBackgroundが実行されました");
 
         try {
             HtmlParseUtil htmlParseUtil = new HtmlParseUtil();
             htmlParseUtil.connectUrll(url);
-            informationDataLists = htmlParseUtil.getInformationParseData();
+            DictonaryDataLists = htmlParseUtil.getInformationParseData();
         } catch (Exception e) {
             Log.d("error", e.toString());
             return false;
         }
 
-        Log.d("debug InformationTask", informationDataLists.toString());
-        intent.putExtra("informationDataLists", informationDataLists);
+        Log.d("DictionaryAsyncTask", DictonaryDataLists.toString());
+        intent.putExtra("informationDataLists", DictonaryDataLists);
         return true;
     }
 
@@ -72,7 +72,7 @@ public class InformationAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
         if (result) {
             ListView listView = (ListView)activity.findViewById(R.id.informationListView);
             SimpleAdapter adapter = new SimpleAdapter(activity,
-                    informationDataLists,
+                    DictonaryDataLists,
                     R.layout.information_listview_parts,
                     new String[]{"information_category","information_time"},
                     new int[]{R.id.information_category, R.id.information_time}){
@@ -86,7 +86,7 @@ public class InformationAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
                     } else {
                         view = convertView;
                     }
-                    Map<String, String> informationData = informationDataLists.get(position);
+                    Map<String, String> informationData = DictonaryDataLists.get(position);
                     Log.d("debug", informationData.toString());
 
                     TextView informationCategory = (TextView)view.findViewById(R.id.information_category);
@@ -102,25 +102,16 @@ public class InformationAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
                         case "お知らせ":
                             Log.d("debug InformationTask", "おしらせが実行されました");
                             informationCategory.setBackgroundColor(activity.getResources().getColor(R.color.red));
-                            if (!informationData.get("image_url").equals("")) {
-                                ProgressBar progressBar = new ProgressBar(activity.getApplicationContext(), null, android.R.attr.progressBarStyle);
-                                progressBar.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                                        LinearLayout.LayoutParams.WRAP_CONTENT));
-                                layout.addView(progressBar);
-                                layout.setTag(informationData.get("image_url"));
-                                new ImageGetTask(layout).execute(informationData.get("image_url"));
-                            } else {
-                                TextView informationContents0 = new TextView(activity.getApplicationContext());
-                                informationContents0.setText(informationData.get("title_word"));
-                                informationContents0.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                                        LinearLayout.LayoutParams.WRAP_CONTENT));
-                                //ViewGroup.MarginLayoutParams mp0 = (ViewGroup.MarginLayoutParams)informationContents0.getLayoutParams();
-                                //mp0.setMargins(0,10,10,0);
-                                informationContents0.setGravity(Gravity.CENTER);
-                                informationContents0.setTextSize(15);
-                                informationContents0.setTypeface(null, Typeface.BOLD);
-                                layout.addView(informationContents0);
-                            }
+                            TextView informationContents0 = new TextView(activity.getApplicationContext());
+                            informationContents0.setText(informationData.get("title_word"));
+                            informationContents0.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                                    LinearLayout.LayoutParams.WRAP_CONTENT));
+                            //ViewGroup.MarginLayoutParams mp0 = (ViewGroup.MarginLayoutParams)informationContents0.getLayoutParams();
+                            //mp0.setMargins(0,10,10,0);
+                            informationContents0.setGravity(Gravity.CENTER);
+                            informationContents0.setTextSize(15);
+                            informationContents0.setTypeface(null, Typeface.BOLD);
+                            layout.addView(informationContents0);
                             Log.d("debug InformationTask", "おしらせが終了しました");
                             break;
                         case "重 要":
@@ -128,8 +119,6 @@ public class InformationAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
                             informationCategory.setBackgroundColor(activity.getResources().getColor(R.color.red));
                             if (!informationData.get("image_url").equals("")) {
                                 ProgressBar progressBar = new ProgressBar(activity.getApplicationContext(),null,android.R.attr.progressBarStyle);
-                                progressBar.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                                        LinearLayout.LayoutParams.WRAP_CONTENT));
                                 layout.addView(progressBar);
                                 layout.setTag(informationData.get("image_url"));
                                 new ImageGetTask(layout).execute(informationData.get("image_url"));
@@ -151,7 +140,7 @@ public class InformationAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
                             Log.d("debug InformationTask", "イベントが実行されました");
                             informationCategory.setBackgroundColor(activity.getResources().getColor(R.color.orange));
                             ProgressBar progressBar = new ProgressBar(activity.getApplicationContext(),null,android.R.attr.progressBarStyle);
-                            progressBar.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                            progressBar.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                                     LinearLayout.LayoutParams.WRAP_CONTENT));
                             //ViewGroup.MarginLayoutParams mp2 = (ViewGroup.MarginLayoutParams)progressBar.getLayoutParams();
                             //mp2.setMargins(0,10,10,0);
@@ -181,7 +170,7 @@ public class InformationAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
                 }
             };
             listView.setAdapter(adapter);
-            Log.d("debug InformationTask", "更新完了しました");
+            Log.d("DictionaryAsyncTask", "更新完了しました");
         } else {
             Toast.makeText(activity,"データの取得に失敗しました", Toast.LENGTH_LONG).show();
         }

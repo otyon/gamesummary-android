@@ -24,6 +24,8 @@
             android:name=".activity.NewDetailActivity" />
         <activity
             android:name=".activity.InformationActivity" />
+        <activity
+            android:name=".activity.DictionaryActivity" />
     </application>
 
 </manifest>

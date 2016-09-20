@@ -45,7 +45,8 @@ public abstract class AbstructActivity extends Activity {
      }
 
     public void onDictionaryButtonClick(View v) {
-        Toast.makeText(this, "図鑑ボタンが押されました", Toast.LENGTH_LONG).show();
+        intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.DictionaryActivity");
+        this.startActivity(intent);
     }
 
     public void onBulletionBoardButtonClick(View v) {
