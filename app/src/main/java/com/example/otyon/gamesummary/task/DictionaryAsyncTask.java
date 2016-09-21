@@ -39,11 +39,11 @@ public class DictionaryAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        ListView listView = (ListView)activity.findViewById(R.id.informationListView);
+        ListView listView = (ListView)activity.findViewById(R.id.dictionaryListView);
         SimpleAdapter adapter = new SimpleAdapter(activity,
                                                     DictonaryDataLists,
-                                                    R.layout.information_listview_parts,
-                                                    new String[]{"information_category","information_time"},
+                                                    R.layout.content_dictionary_parts,
+                                                    new String[]{"char_no","char_name"},
                                                     new int[]{R.id.information_category, R.id.information_time});
         listView.setAdapter(adapter);
     }
@@ -55,7 +55,7 @@ public class DictionaryAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
         try {
             HtmlParseUtil htmlParseUtil = new HtmlParseUtil();
             htmlParseUtil.connectUrll(url);
-            DictonaryDataLists = htmlParseUtil.getInformationParseData();
+            DictonaryDataLists = htmlParseUtil.getDictionaryParseData();
         } catch (Exception e) {
             Log.d("error", e.toString());
             return false;

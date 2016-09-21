@@ -237,6 +237,29 @@ public class HtmlParseUtil {
         return parseDatas;
     }
 
+    /**
+     * 図鑑
+     * https://gamy.jp/unisonleague/dictionary/equipments?order=latest
+     * */
+    public ArrayList<Map<String, String>> getDictionaryParseData() {
+        ArrayList<Map<String, String>> parseDatas = new ArrayList<Map<String, String>>();
+
+        Elements targetElements = (Elements)document.select("li.fl");
+        ListIterator<Element> targetElementLists = targetElements.listIterator();
+        while(targetElementLists.hasNext()) {
+            Element targetElement = targetElementLists.next();
+            Map<String, String> parseData = new HashMap<String, String>();
+
+            parseData.put("url",        targetElement.getElementsByTag("a").attr("href"));
+            parseData.put("image_url", targetElement.getElementsByTag("img").attr("src"));
+            parseData.put("char_no",    targetElement.getElementsByClass("dictionaryList__item__uid").text());
+            parseData.put("char_name", targetElement.getElementsByTag("p").text());
+            parseDatas.add(parseData);
+        }
+
+        return parseDatas;
+    }
+
     private String getText(Node node, String... tagNames) {
         String text = "";
         List<Node> nodes = node.childNodes();
