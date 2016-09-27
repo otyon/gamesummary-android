@@ -7,20 +7,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.example.otyon.gamesummary.R;
-import com.example.otyon.gamesummary.task.InformationAsyncTask;
+import com.example.otyon.gamesummary.task.DictionaryAsyncTask;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 public class DictionaryActivity extends AbstructActivity {
 
-    protected ArrayList<Map<String, String>> informationDataLists;
-    protected String baseUrl = "http://app.ja.unisonleague.com/app_jp/information.php?action_information_past=true&lang=jp";
+    protected ArrayList<Map<String, String>> dictionaryDataLists;
+    protected String baseUrl = "https://gamy.jp/unisonleague/dictionary/equipments?order=latest";
     protected Intent intent;
     protected Activity activity = this;
     protected FrameLayout frameLayout;
@@ -46,20 +46,17 @@ public class DictionaryActivity extends AbstructActivity {
                 }
             }
         });
-//
-//        new InformationAsyncTask(
-//                activity,
-//                this.intent,
-//                baseUrl).execute();
-//
-//        ListView listView = (ListView) findViewById(R.id.informationListView);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-//            }
-//        });
+
+        new DictionaryAsyncTask(
+                activity,
+                this.intent,
+                baseUrl).execute();
+
+        GridView gridView = (GridView) findViewById(R.id.dictionaryGridView);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+            }
+        });
     }
-//
-//    public void onInformationDetailButonClick(View v){
-//    }
 }
