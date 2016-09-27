@@ -26,6 +26,8 @@
             android:name=".activity.InformationActivity" />
         <activity
             android:name=".activity.DictionaryActivity" />
+        <activity
+            android:name=".activity.BbsTopActivity" />
     </application>
 
 </manifest>

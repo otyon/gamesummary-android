@@ -50,7 +50,8 @@ public abstract class AbstructActivity extends Activity {
     }
 
     public void onBulletionBoardButtonClick(View v) {
-        Toast.makeText(this, "掲示板ボタンが押されました", Toast.LENGTH_LONG).show();
+        intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.BbsTopActivity");
+        this.startActivity(intent);
     }
 
 
