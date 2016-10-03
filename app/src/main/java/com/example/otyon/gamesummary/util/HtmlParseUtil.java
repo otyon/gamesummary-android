@@ -260,6 +260,42 @@ public class HtmlParseUtil {
         return parseDatas;
     }
 
+    /**
+     * 雑談掲示板
+     * https://gamy.jp/unisonleague/dictionary/equipments?order=latest
+     *
+     * 質問掲示板
+     * https://gamy.jp/unisonleague/bbs/qa
+     *
+     * ギルド募集
+     * https://gamy.jp/unisonleague/bbs/other
+     *
+     * 招待ID
+     * https://gamy.jp/unisonleague/bbs/invites
+     * */
+    public ArrayList<Map<String, String>> getBbsParseData() {
+        ArrayList<Map<String, String>> parseDatas = new ArrayList<Map<String, String>>();
+
+        Elements targetElements = (Elements)document.select("li.cf");
+        ListIterator<Element> targetElementLists = targetElements.listIterator();
+        while(targetElementLists.hasNext()) {
+            Element targetElement = targetElementLists.next();
+            Map<String, String> parseData = new HashMap<String, String>();
+
+            parseData.put("url",        targetElement.getElementsByTag("a").attr("href"));
+            parseData.put("bbs_user_image",targetElement.getElementsByTag("img").attr("src"));
+
+            Elements tmpTargetElement = targetElement.getElementsByClass("c-comment__meta");
+            parseData.put("bbs_user_name", tmpTargetElement.get(0).getElementsByClass("fl").text());
+            parseData.put("bbs_post_time", tmpTargetElement.get(0).getElementsByClass("fr").text());
+            parseData.put("comment_title",targetElement.getElementsByClass("c-comment__title__text").text());
+            parseData.put("comment_num",  targetElement.getElementsByClass("ml4").text());
+            parseDatas.add(parseData);
+        }
+
+        return parseDatas;
+    }
+
     private String getText(Node node, String... tagNames) {
         String text = "";
         List<Node> nodes = node.childNodes();

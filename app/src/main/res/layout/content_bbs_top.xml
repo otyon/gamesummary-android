@@ -22,11 +22,13 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:onClick="onChatButtonClick"
             android:src="@drawable/chat"/>
         <ImageView
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:onClick="onQuestionButtonClick"
             android:src="@drawable/quection"/>
         </LinearLayout>
     </LinearLayout>
@@ -44,11 +46,13 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:onClick="onFriendButtonClick"
                 android:src="@drawable/friend"/>
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:onClick="onInvitationButtonClick"
                 android:src="@drawable/invitation"/>
         </LinearLayout>
     </LinearLayout>

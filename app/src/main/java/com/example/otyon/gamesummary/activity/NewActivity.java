@@ -41,26 +41,6 @@ public class NewActivity extends AbstructActivity {
                 intent,
                 baseUrl).execute();
 
-        // 後ほどファイルから習得する方法に・・・
-//        if (newDataLists == null) {
-//            newDataLists = new ArrayList<Map<String, String>>();
-//            try {
-//                HtmlParseUtil htmlParseUtil = new HtmlParseUtil();
-//                htmlParseUtil.connectUrll(this.baseUrl);
-//                newDataLists = htmlParseUtil.getNewsParseData();
-//                intent.putExtra("newDataLists", newDataLists);
-//            } catch (Exception e) {
-//                Log.d("error", e.toString());
-//            }
-//        }
-
-//        ListView listView = (ListView) findViewById(R.id.newListView);
-//        SimpleAdapter adapter = new SimpleAdapter(this,
-//                newDataLists,
-//                R.layout.new_listview_parts,
-//                new String[]{"heding","channel"},
-//                new int[]{R.id.heding, R.id.channel});
-//        listView.setAdapter(adapter);
         ListView listView = (ListView) findViewById(R.id.newListView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {

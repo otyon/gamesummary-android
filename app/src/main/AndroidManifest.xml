@@ -28,6 +28,8 @@
             android:name=".activity.DictionaryActivity" />
         <activity
             android:name=".activity.BbsTopActivity" />
+        <activity
+            android:name=".activity.BbsListActivity" />
     </application>
 
 </manifest>

@@ -16,7 +16,6 @@ import java.util.Map;
 
 public class BbsTopActivity extends AbstructActivity {
 
-    protected String baseUrl = "http://app.ja.unisonleague.com/app_jp/information.php?action_information_past=true&lang=jp";
     protected Intent intent;
     protected Activity activity = this;
 
@@ -32,4 +31,28 @@ public class BbsTopActivity extends AbstructActivity {
 
     @Override
     public void onBulletionBoardButtonClick(View v) {}
+
+    public void onChatButtonClick(View v) {
+        intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.BbsListActivity");
+        intent.putExtra("baseUrl", "https://gamy.jp/unisonleague/bbs/chats");
+        activity.startActivity(intent);
+    }
+
+    public void onQuestionButtonClick(View v) {
+        intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.BbsListActivity");
+        intent.putExtra("baseUrl", "https://gamy.jp/unisonleague/bbs/qa");
+        activity.startActivity(intent);
+    }
+
+    public void onFriendButtonClick(View v) {
+        intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.BbsListActivity");
+        intent.putExtra("baseUrl", "https://gamy.jp/unisonleague/bbs/other");
+        activity.startActivity(intent);
+    }
+
+    public void onInvitationButtonClick(View v) {
+        intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.BbsListActivity");
+        intent.putExtra("baseUrl", "https://gamy.jp/unisonleague/bbs/invites");
+        activity.startActivity(intent);
+    }
 }
