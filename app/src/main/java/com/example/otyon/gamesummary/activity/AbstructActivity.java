@@ -35,16 +35,19 @@ public abstract class AbstructActivity extends Activity {
     }
 
     public void onNewButtonClick(View v) {
+        Toast.makeText(this, "onNewButtonClick", Toast.LENGTH_LONG).show();
         intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.NewActivity");
         this.startActivity(intent);
     }
 
     public void onInfomationButtonClick(View v) {
+        Toast.makeText(this, "onInfomationButtonClick", Toast.LENGTH_LONG).show();
         intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.InformationActivity");
         this.startActivity(intent);
      }
 
     public void onDictionaryButtonClick(View v) {
+        Toast.makeText(this, "onDictionaryButtonClick", Toast.LENGTH_LONG).show();
         intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.DictionaryActivity");
         this.startActivity(intent);
     }
@@ -54,9 +57,9 @@ public abstract class AbstructActivity extends Activity {
         this.startActivity(intent);
     }
 
-
     public void onFavoriteButtonClick(View v) {
-        Toast.makeText(this, "お気に入りボタンが押されました", Toast.LENGTH_LONG).show();
+        intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.FavoriteActivity");
+        this.startActivity(intent);
     }
 
     @Override

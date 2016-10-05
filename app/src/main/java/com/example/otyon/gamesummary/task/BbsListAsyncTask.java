@@ -37,13 +37,6 @@ public class BbsListAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-//        ListView listView = (ListView)activity.findViewById(R.id.bbsListView);
-//        SimpleAdapter adapter = new SimpleAdapter(activity,
-//                bbsDataLists,
-//                R.layout.bbs_listview_parts,
-//                new String[]{"",""},
-//                new int[]{1, 2});
-//        listView.setAdapter(adapter);
     }
 
     @Override
