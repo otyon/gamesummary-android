@@ -30,24 +30,20 @@ public abstract class AbstructActivity extends Activity {
         this.onBackPressed();
     }
 
-    public void onReloadButtonClick(View v) {
-        Toast.makeText(this, "リロードボタンが押されました", Toast.LENGTH_LONG).show();
-    }
+    public void onReloadButtonClick(View v) {}
 
     public void onNewButtonClick(View v) {
-        Toast.makeText(this, "onNewButtonClick", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "onNewButtonClickがクリックされました", Toast.LENGTH_LONG).show();
         intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.NewActivity");
         this.startActivity(intent);
     }
 
     public void onInfomationButtonClick(View v) {
-        Toast.makeText(this, "onInfomationButtonClick", Toast.LENGTH_LONG).show();
         intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.InformationActivity");
         this.startActivity(intent);
      }
 
     public void onDictionaryButtonClick(View v) {
-        Toast.makeText(this, "onDictionaryButtonClick", Toast.LENGTH_LONG).show();
         intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.DictionaryActivity");
         this.startActivity(intent);
     }

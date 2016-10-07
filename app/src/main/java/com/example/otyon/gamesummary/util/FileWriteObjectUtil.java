@@ -25,7 +25,7 @@ public class FileWriteObjectUtil implements Serializable {
      * @param filename 書き込むファイル名
      * @return  true:保存成功 false:保存失敗
      */
-    public boolean save(Context context, Object serializeObject, String filename) {
+    public static boolean save(Context context, Object serializeObject, String filename) {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
