@@ -32,6 +32,8 @@
             android:name=".activity.BbsListActivity" />
         <activity
             android:name=".activity.FavoriteActivity" />
+        <activity
+            android:name=".activity.InformationDetailActivity" />
     </application>
 
 </manifest>

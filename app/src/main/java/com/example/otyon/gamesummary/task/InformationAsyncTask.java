@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -39,13 +40,13 @@ public class InformationAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        ListView listView = (ListView)activity.findViewById(R.id.informationListView);
-        SimpleAdapter adapter = new SimpleAdapter(activity,
-                                                   informationDataLists,
-                                                    R.layout.information_listview_parts,
-                                                    new String[]{"information_category","information_time"},
-                                                    new int[]{R.id.information_category, R.id.information_time});
-        listView.setAdapter(adapter);
+//        ListView listView = (ListView)activity.findViewById(R.id.informationListView);
+//        SimpleAdapter adapter = new SimpleAdapter(activity,
+//                                                   informationDataLists,
+//                                                    R.layout.information_listview_parts,
+//                                                    new String[]{"information_category","information_time"},
+//                                                    new int[]{R.id.information_category, R.id.information_time});
+//        listView.setAdapter(adapter);
     }
 
     @Override
@@ -94,6 +95,9 @@ public class InformationAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
 
                     TextView informationTime = (TextView)view.findViewById(R.id.information_time);
                     informationTime.setText(informationData.get("time"));
+
+                    Button informationDetailButton = (Button)view.findViewById(R.id.information_detail_button);
+                    informationDetailButton.setTag(position);
 
                     LinearLayout layout = (LinearLayout)view.findViewById(R.id.information_contents_layout);
                     layout.removeAllViews();

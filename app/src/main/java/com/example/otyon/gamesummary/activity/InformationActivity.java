@@ -3,20 +3,22 @@ package com.example.otyon.gamesummary.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.otyon.gamesummary.R;
 import com.example.otyon.gamesummary.task.InformationAsyncTask;
+import com.example.otyon.gamesummary.util.FileWriteObjectUtil;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 public class InformationActivity extends AbstructActivity {
 
-    protected ArrayList<Map<String, String>> informationDataLists;
     protected String baseUrl = "http://app.ja.unisonleague.com/app_jp/information.php?action_information_past=true&lang=jp";
     protected Intent intent;
     protected Activity activity = this;
@@ -34,15 +36,12 @@ public class InformationActivity extends AbstructActivity {
                 activity,
                 this.intent,
                 baseUrl).execute();
-
-        ListView listView = (ListView) findViewById(R.id.informationListView);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-            }
-        });
     }
 
     public void onInformationDetailButonClick(View v){
+        int position = (Integer)v.getTag();
+        intent.putExtra("selectPosition", position);
+        intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.InformationDetailActivity");
+        this.startActivity(intent);
     }
 }

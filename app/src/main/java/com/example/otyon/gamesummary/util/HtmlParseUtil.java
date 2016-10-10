@@ -296,6 +296,16 @@ public class HtmlParseUtil {
         return parseDatas;
     }
 
+    /**
+     * 公式お知らせ詳細
+     * http://app.ja.unisonleague.com/app_jp/information.php?action_information_detail=true&information_id=1434&callback=information_past&row=1&lang=jp
+     * */
+    public String getInformationDetailOuterHtml() {
+        document.select("div.detail_back").remove();
+        document.getElementsByTag("body").get(0).getElementsByTag("script").remove();
+        return document.outerHtml();
+    }
+
     private String getText(Node node, String... tagNames) {
         String text = "";
         List<Node> nodes = node.childNodes();
