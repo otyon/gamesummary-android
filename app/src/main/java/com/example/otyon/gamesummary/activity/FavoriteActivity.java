@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.example.otyon.gamesummary.R;
 import com.example.otyon.gamesummary.task.FavoriteAsyncTask;
@@ -30,8 +31,10 @@ public class FavoriteActivity extends AbstructActivity {
                 intent).execute();
 
         ListView listView = (ListView) findViewById(R.id.favoriteListView);
+        Log.d("FavoriteActivity", listView.toString());
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                Log.d("FavoriteActivity", "ListView is Clicked");
                 intent.putExtra("selectPosition", pos);
                 intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.NewDetailActivity");
                 activity.startActivity(intent);

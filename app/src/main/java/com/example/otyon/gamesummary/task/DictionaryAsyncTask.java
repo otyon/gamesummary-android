@@ -3,7 +3,6 @@ package com.example.otyon.gamesummary.task;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Gravity;
