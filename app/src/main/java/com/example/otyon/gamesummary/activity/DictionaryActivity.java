@@ -56,6 +56,9 @@ public class DictionaryActivity extends AbstructActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                intent.putExtra("selectPosition", pos);
+                intent.setClassName("com.example.otyon.gamesummary", "com.example.otyon.gamesummary.activity.DictionaryDetailActivity");
+                activity.startActivity(intent);
             }
         });
     }

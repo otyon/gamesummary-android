@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/informaion_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:color="@color/colorPrimary"
+    android:weightSum="3"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/common_header"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_weight="1"/>
+
+    <include
+        layout="@layout/content_dictionary_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+    <include
+        layout="@layout/common_footer"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_weight="1"/>
+
+  </LinearLayout>

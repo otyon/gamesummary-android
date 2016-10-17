@@ -34,6 +34,8 @@
             android:name=".activity.FavoriteActivity" />
         <activity
             android:name=".activity.InformationDetailActivity" />
+        <activity
+            android:name=".activity.DictionaryDetailActivity" />
     </application>
 
 </manifest>

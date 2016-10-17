@@ -250,7 +250,7 @@ public class HtmlParseUtil {
             Element targetElement = targetElementLists.next();
             Map<String, String> parseData = new HashMap<String, String>();
 
-            parseData.put("url",        targetElement.getElementsByTag("a").attr("href"));
+            parseData.put("url",        "https://gamy.jp"+ targetElement.getElementsByTag("a").attr("href"));
             parseData.put("image_url", targetElement.getElementsByTag("img").attr("src"));
             parseData.put("char_no",    targetElement.getElementsByClass("dictionaryList__item__uid").text());
             parseData.put("char_name", targetElement.getElementsByTag("p").text());
@@ -304,6 +304,78 @@ public class HtmlParseUtil {
         document.select("div.detail_back").remove();
         document.getElementsByTag("body").get(0).getElementsByTag("script").remove();
         return document.outerHtml();
+    }
+
+    /**
+     * 図鑑詳細
+     * https://gamy.jp/unisonleague/dictionary/equipments/589
+     * */
+    public ArrayList<Map<String, String>> getDictionaryDetailParseData() {
+        ArrayList<Map<String, String>> parseDatas = new ArrayList<Map<String, String>>();
+
+        Elements targetElements = (Elements)document.select("div.l-threeColumn__main__content");
+        ListIterator<Element> targetElementLists = targetElements.listIterator();
+        while(targetElementLists.hasNext()) {
+            Element targetElement = targetElementLists.next();
+            Map<String, String> parseData = new HashMap<String, String>();
+
+            parseData.put("item_title",     targetElement.getElementsByClass("s-mainTitle__content__title").text());
+            parseData.put("item_image_url", targetElement.getElementsByClass("p-dictionaryItem__image").get(0).getElementsByTag("img").attr("src"));
+
+            Elements items = (Elements)targetElement.getElementsByTag("section");
+            ListIterator<Element> itemLists = items.listIterator();
+            Elements tmpItemLists = null;
+
+            Element section1 = itemLists.next();
+            tmpItemLists = section1.getElementsByTag("dd");
+            parseData.put("item_name", tmpItemLists.get(0).text());
+            parseData.put("item_rare", tmpItemLists.get(1).text());
+            parseData.put("item_type", tmpItemLists.get(2).text());
+            parseData.put("item_kind", tmpItemLists.get(3).text());
+            parseData.put("item_attribute", tmpItemLists.get(4).text());
+            parseData.put("item_cost", tmpItemLists.get(5).text());
+            parseData.put("item_evolution_num", tmpItemLists.get(6).text());
+            parseData.put("item_max_level", tmpItemLists.get(7).text());
+
+            Element section2 = itemLists.next();
+            tmpItemLists = section2.getElementsByTag("tr");
+            Elements tmp2 = tmpItemLists.get(1).getElementsByTag("td");
+            parseData.put("item_attack", tmp2.get(0).text());
+            parseData.put("item_max_attack", tmp2.get(1).text());
+
+            tmp2 = tmpItemLists.get(2).getElementsByTag("td");
+            parseData.put("item_m_attack", tmp2.get(0).text());
+            parseData.put("item_m_max_attack", tmp2.get(1).text());
+
+            tmp2 = tmpItemLists.get(3).getElementsByTag("td");
+            parseData.put("item_defence", tmp2.get(0).text());
+            parseData.put("item_max_defence", tmp2.get(1).text());
+
+            tmp2 = tmpItemLists.get(4).getElementsByTag("td");
+            parseData.put("item_m_defence", tmp2.get(0).text());
+            parseData.put("item_m_max_defence", tmp2.get(1).text());
+
+            Element section3 = itemLists.next();
+            tmpItemLists = section3.getElementsByTag("dd");
+            parseData.put("item_skill_name", tmpItemLists.get(0).text());
+            parseData.put("item_skill_effect", tmpItemLists.get(1).text());
+
+            Element section4 = itemLists.next();
+            tmpItemLists = section4.getElementsByTag("dd");
+            parseData.put("item_before_evolution_name", tmpItemLists.get(0).text());
+            parseData.put("item_before_evolution_url", tmpItemLists.get(0).getElementsByTag("a").get(0).attr("href"));
+            parseData.put("item_before_evolution_image",  tmpItemLists.get(0).getElementsByTag("img").attr("src"));
+            parseData.put("item_after_evolution_name", tmpItemLists.get(1).text());
+            parseData.put("item_after_evolution_material", tmpItemLists.get(2).text());
+
+            Element section5 = itemLists.next();
+            tmpItemLists = section5.getElementsByTag("p");
+            parseData.put("item_comment", tmpItemLists.get(0).text());
+
+            parseDatas.add(parseData);
+        }
+
+        return parseDatas;
     }
 
     private String getText(Node node, String... tagNames) {

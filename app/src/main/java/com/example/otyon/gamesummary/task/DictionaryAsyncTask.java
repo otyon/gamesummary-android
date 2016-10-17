@@ -61,7 +61,7 @@ public class DictionaryAsyncTask extends AsyncTask<Void, Boolean, Boolean> {
         }
 
         Log.d("DictionaryAsyncTask", dictionaryDataLists.toString());
-        intent.putExtra("informationDataLists", dictionaryDataLists);
+        intent.putExtra("dictionaryDataLists", dictionaryDataLists);
         return true;
     }
 
